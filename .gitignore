@@ -1,0 +1,7 @@
+.idea
+*.iml
+bin/.salesforce
+bin/cookie
+bin/export.php
+/vendor
+bin/access_token.php

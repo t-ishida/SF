@@ -1,0 +1,30 @@
+{
+    "name": "t_ishida/SF",
+    "description": "yet another SalesForce Library",
+    "license": "MIT License",
+    "repositories":[
+        {
+            "url": "https://github.com/t-ishida/loula.git",
+            "type": "git"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Takeshi Ishida",
+            "email": "ishida@aainc.co.jp"
+        }
+    ],
+    "autoload" : {
+        "psr-4" : { 
+            "SF\\" : "src/SF"
+        }
+    },
+    "require-dev": {
+        "phake/phake": "2.*",
+        "PHPUnit/phpunit": "*",
+        "squizlabs/php_codesniffer": "2.*"
+    },
+    "require" : {
+        "t_ishida/loula": "dev-master"
+    }
+}

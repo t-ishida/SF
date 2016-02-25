@@ -1,0 +1,23 @@
+<?php
+const SETTINGS = __DIR__ . '/.salesforce';
+const QUERY1 = '/path/to/query';
+const RESULT1 = '/path/to/csv';
+require_once __DIR__ . '/../vendor/autoload.php';
+$settings = new SF\APISettings(SETTINGS);
+if (!$settings->getAccessToken()) {
+    system(__DIR__ . '/access_token.php');
+}
+try {
+    main($settings);
+} catch(\Exception $e) {
+    var_dump($e);
+    system(__DIR__ . '/access_token.php');
+    main($settings);
+}
+function main ($settings) {
+    (new \SF\Crawler(
+        new SF\Aggregator\QueryAggregator(new \SF\Aggregator\FileQuery(QUERY1), $settings),
+        new SF\Reducer\CSVWriter(RESULT1)
+    ))->run();
+}
+
