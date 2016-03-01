@@ -2,12 +2,13 @@
 namespace SF\Aggregator;
 
 use SF\Aggregator;
+use SF\Query\Query;
 use SF\APISettings;
 
 class QueryAggregator extends \SF\Client implements Aggregator
 {
     /**
-     * @var StringQuery
+     * @var Query
      */
     private $query = null;
 

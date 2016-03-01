@@ -102,6 +102,8 @@ class Client extends \Loula\HttpClient
             if ($e->getStatus() == 401 && $e->getBody() === "[{\"message\":\"Session expired or invalid\",\"errorCode\":\"INVALID_SESSION_ID\"}]") {
                 $this->refreshToken();
                 $result = parent::sendOne($request, $throwBadRequest);
+            } elseif ($throwBadRequest) {
+                throw $e;
             }
         }
         return $result;

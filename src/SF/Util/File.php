@@ -60,6 +60,11 @@ class File
         return fread($this->fp, $size);
     }
 
+    public function gets($size = 65535)
+    {
+        return fgets($this->fp, $size);
+    }
+
     public function readAll()
     {
         $content = '';

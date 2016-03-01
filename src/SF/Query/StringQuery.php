@@ -1,7 +1,5 @@
 <?php
-namespace SF\Aggregator;
-
-
+namespace SF\Query;
 
 class StringQuery implements Query
 {

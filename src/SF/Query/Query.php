@@ -1,5 +1,5 @@
 <?php
-namespace SF\Aggregator;
+namespace SF\Query;
 
 
 interface Query
