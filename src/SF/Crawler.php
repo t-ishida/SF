@@ -1,5 +1,6 @@
 <?php
 namespace SF;
+use Loula\Exception;
 
 /**
  * Class Crawler
@@ -40,7 +41,13 @@ class Crawler
         $result = $this->aggregator->aggregate();
         if ($this->mapper) {
             for ($i = 0, $l = count($result); $i < $l; $i++) {
-                $result[$i] = $this->mapper->map($result[$i]);
+                try {
+                    $result[$i] = $this->mapper->map($result[$i]);
+                }catch(\Exception $e) {
+                    print "<<ERROR $i>>\n";
+                    var_dump($e);
+                }
+                print "$i\n";
             }
         }
         if ($this->reducer) {

@@ -26,7 +26,8 @@ class CSVAggregator extends File implements Aggregator
         }
         $result = array();
         while($row = $this->gets()) {
-            $rows[] = array_combine($this->headers,  StringUtil::parseCSV($row));
+            if (!trim($row)) continue;
+            $result[] = (object)array_combine($this->headers,  StringUtil::parseCSV($row));
         }
         return $result;
     }
