@@ -43,11 +43,10 @@ class Crawler
             for ($i = 0, $l = count($result); $i < $l; $i++) {
                 try {
                     $result[$i] = $this->mapper->map($result[$i]);
-                }catch(\Exception $e) {
+                } catch(\Exception $e) {
                     print "<<ERROR $i>>\n";
-                    var_dump($e);
+                    error_log($e->getMessage());
                 }
-                print "$i\n";
             }
         }
         if ($this->reducer) {
