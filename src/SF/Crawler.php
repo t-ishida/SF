@@ -44,8 +44,7 @@ class Crawler
                 try {
                     $result[$i] = $this->mapper->map($result[$i]);
                 } catch(\Exception $e) {
-                    print "<<ERROR $i>>\n";
-                    error_log($e->getMessage());
+                    error_log("<<ERROR $i>>\n" . $e->getMessage() . "\n");
                 }
             }
         }
