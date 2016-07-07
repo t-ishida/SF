@@ -4,23 +4,30 @@ namespace SF\Aggregator;
 use SF\Aggregator;
 use SF\Query\Query;
 use SF\APISettings;
+use SF\Query\TemplateQuery;
 
 class QueryAggregator extends \SF\Client implements Aggregator
 {
     /**
      * @var Query
      */
-    private $query = null;
+    private $queries = null;
 
     /**
      * QueryAggregator constructor.
      * @param Query $query
      * @param APISettings $settings
      */
-    public function __construct(Query $query, APISettings $settings)
+    public function __construct($query, APISettings $settings)
     {
         parent::__construct($settings);
-        $this->query = $query;
+        if(!is_array($query) && $query instanceof Query) {
+            throw new \InvalidArgumentException('$query is not query');
+        }
+        if ($query instanceof Query) {
+            $query = array($query);
+        } 
+        $this->queries = $query;
     }
 
     /**
@@ -28,8 +35,22 @@ class QueryAggregator extends \SF\Client implements Aggregator
      */
     public function aggregate()
     {
-        return $this->createResult($this->get('/services/data/v26.0/query', array('q' => $this->query->toString())));
+        $result = null;
+        foreach ($this->queries as $query) {
+            if ($result) {
+                $tmp = array();
+                foreach ($result as $row) {
+                    $query instanceof TemplateQuery && $query->prepare($row);
+                    $tmp[] = $this->createResult($this->get('/services/data/v26.0/query', array('q' => $query->toString())));
+                }
+                $result = $tmp;
+            } else {
+                $result = $this->createResult($this->get('/services/data/v26.0/query', array('q' => $query->toString())));
+            }
+        }
+        return $result;
     }
+
 
     /**
      * @param $apiResult
