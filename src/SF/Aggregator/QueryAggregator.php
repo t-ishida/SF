@@ -41,7 +41,10 @@ class QueryAggregator extends \SF\Client implements Aggregator
                 $tmp = array();
                 foreach ($result as $row) {
                     $query instanceof TemplateQuery && $query->prepare($row);
-                    $tmp[] = $this->query($query);
+                    foreach($this->query($query->toString()) as $currentRow) {
+                        $currentRow['parentNode'] = $row;
+                        $tmp[] = $this->query($query);
+                    }
                 }
                 $result = $tmp;
             } else {
