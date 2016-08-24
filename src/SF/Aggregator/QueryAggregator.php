@@ -21,7 +21,7 @@ class QueryAggregator extends \SF\Client implements Aggregator
     public function __construct($query, APISettings $settings)
     {
         parent::__construct($settings);
-        if(!is_array($query) && $query instanceof Query) {
+        if(!is_array($query) && !($query instanceof Query)) {
             throw new \InvalidArgumentException('$query is not query');
         }
         if ($query instanceof Query) {
