@@ -34,7 +34,7 @@ class Client extends \Loula\HttpClient
     {
         return json_decode($this->sendOne(new HttpRequest(
             'GET',
-            $this->settings->getInstanceUrl() . $url,
+            strpos($url, 'http') === 0 ? $url : ($this->settings->getInstanceUrl(). $url),
             $params,
             null,
             $this->buildHeader()))->getBody());
@@ -50,7 +50,7 @@ class Client extends \Loula\HttpClient
     {
         return json_decode($this->sendOne(new HttpRequest(
             'POST',
-            $this->settings->getInstanceUrl() . $url,
+            strpos($url, 'http') === 0 ? $url : ($this->settings->getInstanceUrl(). $url),
             $params,
             $files,
             $this->buildHeader()))->getBody());
@@ -66,7 +66,7 @@ class Client extends \Loula\HttpClient
     {
         return json_decode($this->sendOne(new HttpRequest(
             'PUT',
-            $this->settings->getInstanceUrl(). $url,
+            strpos($url, 'http') === 0 ? $url : ($this->settings->getInstanceUrl(). $url),
             $params,
             $files,
             $this->buildHeader()))->getBody());
@@ -81,7 +81,7 @@ class Client extends \Loula\HttpClient
     {
         return json_decode($this->sendOne(new HttpRequest(
             'DELETE',
-            $this->settings->getInstanceUrl() . $url,
+            strpos($url, 'http') === 0 ? $url : ($this->settings->getInstanceUrl(). $url),
             $params,
             null,
             $this->buildHeader()))->getBody()
