@@ -80,6 +80,6 @@ class APISettings extends File
 
     public function __destruct()
     {
-        $this->save();
+        //$this->save();
     }
 }
