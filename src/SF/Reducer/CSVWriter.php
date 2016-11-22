@@ -25,7 +25,7 @@ class CSVWriter extends File implements Reducer
      */
     public function reduce(array $list)
     {
-        $escape = function($col) {return '"' . str_replace(array('\\', '"', "\n"), array('\\\\','\"', '\n'), $col) . '"';};
+        $escape = function($col) {return '"' . str_replace(array('\\', '"',"\r\n", "\r", "\n"), array('\\\\','\"', '\n', '\n', '\n'), $col) . '"';};
         $this->writeLine(implode(',', array_map($escape, array_keys((array)reset($list)))));
         foreach ($list as $row) {
             $this->writeLine(implode(',', array_map($escape, array_values((array)$row))));
