@@ -130,6 +130,7 @@ class Client extends \Loula\HttpClient
         ));
         $result->client_id = $this->settings->getClientId();
         $result->client_secret = $this->settings->getClientSecret();
+        $result->refresh_token = $this->settings->getRefreshToken(); 
         $this->settings->set($result);
         $this->settings->save();
         return $result;
