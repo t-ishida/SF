@@ -45,9 +45,11 @@ class Crawler
                     $result[$i] = $this->mapper->map($result[$i]);
                 } catch(\Exception $e) {
                     error_log("<<ERROR $i>>\n" . $e->getMessage() . "\n");
+                    unset($result[$i]);
                 }
             }
         }
+        $result = array_values($result);
         if ($this->reducer) {
             $result = $this->reducer->reduce($result);
         }
