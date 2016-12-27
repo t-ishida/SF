@@ -44,7 +44,7 @@ class Crawler
                 try {
                     $result[$i] = $this->mapper->map($result[$i]);
                 } catch (\Loula\Exception $e){
-                    if ($e->getStatus() === '400' && $e->getBody() && strpos($e->getBody(), 'unsupported_grant_type') !== false) {
+                    if ($e->getStatus() == 400 && $e->getBody() && strpos($e->getBody(), 'unsupported_grant_type') !== false) {
                         throw $e;
                     } else {
                         error_log("<<ERROR $i>>\n" . var_export($e, true). "\n");
