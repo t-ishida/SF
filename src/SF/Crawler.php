@@ -43,8 +43,15 @@ class Crawler
             for ($i = 0, $l = count($result); $i < $l; $i++) {
                 try {
                     $result[$i] = $this->mapper->map($result[$i]);
+                } catch (\Loula\Exception $e){
+                    if ($e->getStatus() === '400' && $e->getBody() && strpos($e->getBody(), 'unsupported_grant_type') !== false) {
+                        throw $e;
+                    } else {
+                        error_log("<<ERROR $i>>\n" . var_export($e, true). "\n");
+                        unset($result[$i]);
+                    }
                 } catch(\Exception $e) {
-                    error_log("<<ERROR $i>>\n" . $e->getMessage() . "\n");
+                    error_log("<<ERROR $i>>\n" . var_export($e, true). "\n");
                     unset($result[$i]);
                 }
             }
