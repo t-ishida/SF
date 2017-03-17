@@ -156,6 +156,9 @@ class Client extends \Loula\HttpClient
      */
     public function createResult($apiResult)
     {
+        if (!$apiResult || !$apiResult->records) {
+            return array();
+        }
         $result = array_map(function($row){return $this->flat($row);}, $apiResult->records);
         isset($apiResult->nextRecordsUrl) &&
         $result = array_merge($result, $this->createResult($this->get($apiResult->nextRecordsUrl)));
